@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.2'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'msa.fisa.club'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('springCloudVersion', "2023.0.0")
+}
+
+dependencies {
+    // eureka server
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+
+
+    // spring boot admin
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '3.2.2'
+    // eureka admin server
+    implementation group: 'de.codecentric', name: 'spring-boot-admin-starter-server', version: '3.2.2'
+    // eureka admin client
+    implementation group: 'de.codecentric', name: 'spring-boot-admin-starter-client', version: '3.2.2'
+
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
